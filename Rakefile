@@ -1,7 +1,9 @@
+require 'rubygems'
 require 'coffee-script'
 require 'sass'
 require 'bourbon'
 require 'fileutils'
+require 'haml'
 
 extensions = ['js', 'css', 'html', 'json', 'jpg', 'png']
 
@@ -15,6 +17,18 @@ task :run do
     puts " done!"
   end
 
+  Dir.glob "source/*.haml" do |file|
+    print "Compiling #{file}..."
+    target = File.open('public/' + File.basename(file).split('.haml')[0] + '.html', 'w')
+    target.write Haml::Engine.new(File.read(file)).render
+    target.close
+    puts " done!"
+  end
+
+  FileUtils.cd 'source' do
+    Bourbon::Generator.new(['install']).run
+  end
+
   Dir.glob "source/*.sass" do |file|
     print "Compiling #{file}..."
     target = 'public/' + File.basename(file).split('.sass')[0] + '.css'
@@ -22,9 +36,8 @@ task :run do
     puts " done!"
   end
 
-  FileUtils.cd 'source' do
-    Bourbon::Generator.new(['install']).run
-  end
+  FileUtils.rm_rf 'source/bourbon'
+  FileUtils.rm_rf '.sass-cache'
 
   extensions.each do |ext|
     Dir.glob "source/*.#{ext}" do |file|
