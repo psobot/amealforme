@@ -1,0 +1,46 @@
+!!!
+%html
+  %head
+    %title Dinner for Me
+
+    %link{
+      :href => "http://fonts.googleapis.com/css?family=Nunito:700,300,400",
+      :rel => "stylesheet",
+      :type => "text/css"
+    }
+    %link{:href => "style.css", :rel => "stylesheet", :type => "text/css"}
+
+    %script{
+      :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js",
+      :type => "text/javascript"
+    }
+    %script{:src => "ingredients.json", :type => "text/javascript"}
+    %script{:src => "dinnerforme.js", :type => "text/javascript"}
+  %body
+    .container
+      %form.choose
+        %h1 I'm hungry.
+        %h2
+          %span.error Hmm. No recipes for that.
+          I have:
+        %ol.ingredients
+          %li
+            %input{:type => "text", :value => ""}/
+          %li
+            %input{:type => "text", :value => ""}/
+          %li
+            %input{:type => "text", :value => ""}/
+        %button.go{:type => "submit"} Choose my dinner!
+      .results
+        %h1 Make this.
+        %a.box._source_url{"data-update" => "href", :target => "_blank"}
+          %h2._title
+          %img._source_img{"data-update" => "src"}/
+        %button
+          Not your taste?
+          %strong Try again.
+      .footer
+        a
+        %a{:href => "http://petersobot.com"} peter sobot
+        dig
+        | 2012
