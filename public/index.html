@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dinner for Me</title>
+    <link href='http://fonts.googleapis.com/css?family=Nunito:700,300,400' rel='stylesheet' type='text/css'>
+    <link href='style.css' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'
+            src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+    <script type='text/javascript' src='ingredients.json'></script>
+    <script type='text/javascript' src='dinnerforme.js'></script>
+  </head>
+  <body>
+    <div class='container'>
+      <form class='choose'>
+        <h1>I'm hungry.</h1>
+        <h2><span class='error'>Hmm. No recipes for that.</span> I have:</h2>
+        <ol class='ingredients'>
+          <li><input type='text' value='' /></li>
+          <li><input type='text' value='' /></li>
+          <li><input type='text' value='' /></li>
+        </ol>
+        <button type='submit' class="go">Choose my dinner!</button>
+      </form>
+      <div class='results'>
+        <h1>Make this.</h1>
+        <a class='box _source_url' data-update="href" target="_blank" >
+          <h2 class="_title"></h2>
+          <img class='_source_img' data-update="src" />
+        </a>
+        <button>Not your taste? <strong>Try again.</strong></button>
+      </div>
+      <div class="footer">
+        a <a href="http://petersobot.com">peter sobot</a> dig
+        | 2012
+      </div>
+    </div>
+  </body>
+</html>

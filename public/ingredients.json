@@ -1,0 +1,21 @@
+var ingredients = [
+  [
+    "chicken",
+    "pork",
+    "beef",
+    "ham",
+    "bacon",
+  ],
+  [
+    "tomatoes",
+    "carrots",
+    "corn",
+    "red pepper"
+  ],
+  [
+    "potatoes",
+    "bun",
+    "tortilla",
+    "baguette"
+  ],
+]
