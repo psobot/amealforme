@@ -7,8 +7,7 @@ require 'haml'
 
 extensions = ['js', 'css', 'html', 'json', 'jpg', 'png']
 
-task :run do
-
+task :coffee do
   Dir.glob "source/*.coffee" do |file|
     print "Compiling #{file}..."
     target = File.open('public/' + File.basename(file).split('.coffee')[0] + '.js', 'w')
@@ -16,13 +15,21 @@ task :run do
     target.close
     puts " done!"
   end
+end
 
+task :haml do
   Dir.glob "source/*.haml" do |file|
     print "Compiling #{file}..."
     target = File.open('public/' + File.basename(file).split('.haml')[0] + '.html', 'w')
     target.write Haml::Engine.new(File.read(file)).render
     target.close
     puts " done!"
+  end
+end
+
+task :sass do
+  FileUtils.cd 'source' do
+    Bourbon::Generator.new(['install']).run
   end
 
   FileUtils.cd 'source' do
@@ -38,13 +45,14 @@ task :run do
 
   FileUtils.rm_rf 'source/bourbon'
   FileUtils.rm_rf '.sass-cache'
+end
 
+task :copy do
   extensions.each do |ext|
     Dir.glob "source/*.#{ext}" do |file|
       FileUtils.cp file, 'public/' + File.basename(file)
     end
   end
-
 end
 
 task :clean do
@@ -55,4 +63,6 @@ task :clean do
   FileUtils.rm_rf '.sass-cache'
 end
 
+task :run => %w(coffee haml sass copy)
+task :fresh => %w(clean run)
 task :default => :run

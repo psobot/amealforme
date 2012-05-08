@@ -11,7 +11,7 @@ $width: 500px
 
 body
   text-align: center
-  background: url(triangles_pattern.png)
+  background: url(background.png)
   font-family: Nunito, Helvetica, sans-serif
   .container
     width: 500px
@@ -58,9 +58,10 @@ body
         &:hover
           background-color: rgba(255, 255, 255, 0.8)
           @include transition(background-color 1.0s ease)
+        h2
+          padding: 10px
         img
           width: 100%
-          margin-bottom: $corner/-2
           @include border-bottom-radius($corner/2)
     .footer
       opacity: 0.5
