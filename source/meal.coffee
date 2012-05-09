@@ -33,11 +33,9 @@ createQuery = ->
   l.join ' '
 
 fetch = ->
-  $.ajax
-    url: "http://amealfor.me/recipes?jsonp=?",
-    dataType: 'json',
-    data: {count: 2, q: createQuery()},
-    success: (data) ->
+  $.getJSON "http://amealfor.me/recipes?jsonp=?",
+    {count: 2, q: createQuery()},
+    (data) ->
       if data.count
         $('.choose').fadeOut ->
           $.each data.recipes[0], (k, v) ->
