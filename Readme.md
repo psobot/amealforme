@@ -7,7 +7,7 @@ itself](http://amealfor.me).
 
 ## I want to build it! ##
 
-Cool, a user! Make sure you've got 
+Cool, a user! Try this:
     
     git clone git@github.com:psobot/amealforme.git
     cd amealforme
