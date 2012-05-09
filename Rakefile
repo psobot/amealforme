@@ -1,11 +1,15 @@
 require 'rubygems'
 require 'coffee-script'
+require 'haml'
 require 'sass'
 require 'bourbon'
 require 'fileutils'
-require 'haml'
 
-extensions = ['js', 'css', 'html', 'json', 'jpg', 'png']
+convert_extensions = %w(coffee haml sass)
+
+task :dir do
+  FileUtils.mkdir 'public'
+end
 
 task :coffee do
   Dir.glob "source/*.coffee" do |file|
@@ -32,10 +36,6 @@ task :sass do
     Bourbon::Generator.new(['install']).run
   end
 
-  FileUtils.cd 'source' do
-    Bourbon::Generator.new(['install']).run
-  end
-
   Dir.glob "source/*.sass" do |file|
     print "Compiling #{file}..."
     target = 'public/' + File.basename(file).split('.sass')[0] + '.css'
@@ -43,26 +43,21 @@ task :sass do
     puts " done!"
   end
 
-  FileUtils.rm_rf 'source/bourbon'
-  FileUtils.rm_rf '.sass-cache'
+  FileUtils.rm_rf %w(source/bourbon .sass-cache)
 end
 
 task :copy do
-  extensions.each do |ext|
-    Dir.glob "source/*.#{ext}" do |file|
+  Dir.glob "source/*.*" do |file|
+    unless File.directory?(file) or convert_extensions.include?(file.split('.')[-1])
       FileUtils.cp file, 'public/' + File.basename(file)
     end
   end
 end
 
 task :clean do
-  extensions.each do |ext|
-    FileUtils.rm Dir.glob("public/*.#{ext}")
-  end
-  FileUtils.rm_rf 'source/bourbon'
-  FileUtils.rm_rf '.sass-cache'
+  FileUtils.rm_rf %w(public/ source/bourbon .sass-cache)
 end
 
-task :run => %w(coffee haml sass copy)
+task :run => %w(dir coffee haml sass copy)
 task :fresh => %w(clean run)
 task :default => :run
