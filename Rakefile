@@ -8,7 +8,7 @@ require 'fileutils'
 convert_extensions = %w(coffee haml sass)
 
 task :dir do
-  FileUtils.mkdir 'public'
+  FileUtils.mkdir_p 'public'
 end
 
 task :coffee do

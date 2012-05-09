@@ -34,7 +34,7 @@ createQuery = ->
 
 fetch = ->
   $.ajax
-    url: "http://petersobot.com/recipes?jsonp=?",
+    url: "http://amealfor.me/recipes?jsonp=?",
     dataType: 'json',
     data: {count: 2, q: createQuery()},
     success: (data) ->
